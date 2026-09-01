@@ -35,7 +35,11 @@
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.19.2"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.63.1",
+    "@rollup/rollup-linux-x64-musl": "4.63.1"
+  },
   "engines": {
-    "node": "20.x"
+    "node": ">=18.0.0"
   }
 }

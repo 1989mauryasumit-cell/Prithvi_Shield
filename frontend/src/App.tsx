@@ -7,8 +7,9 @@ import { Dashboard } from './pages/Dashboard';
 import './i18n';
 
 // Configure Axios Defaults
-const API_BASE_URL = 'https://09599948edf3c9.lhr.life';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.timeout = 2000;
 
 export const App: React.FC = () => {
   const {
@@ -93,7 +94,12 @@ export const App: React.FC = () => {
     loadData();
 
     // 2. Setup WebSocket Live Stream
-    const socket = io('https://09599948edf3c9.lhr.life/live');
+    const socketUrl = import.meta.env.VITE_WS_URL || 'http://localhost:5000';
+    const socket = io(`${socketUrl}/live`, { 
+      timeout: 2000, 
+      reconnectionAttempts: 2, 
+      autoConnect: false 
+    });
 
     // In-memory simulation interval when backend is offline
     const simInterval = setInterval(() => {

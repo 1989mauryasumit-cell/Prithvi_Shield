@@ -21,20 +21,15 @@ export const App: React.FC = () => {
     addIncident,
     updateIncident,
     setCitizenReports,
-    addCitizenReport,
-    updateCitizenReport,
     setAlerts,
     addAlert,
     updateAlert,
-    setIsConnected,
-    isConnected
+    setIsConnected
   } = useUIStore();
 
   // 1. Initial API poll
   const loadData = async () => {
     try {
-      const headers = user ? { Authorization: `Bearer token_mock_admin` } : undefined; // Simulated headers
-
       const [sensorsRes, roadsRes, incidentsRes, alertsRes] = await Promise.all([
         axios.get('/sensors'),
         axios.get('/roads'),

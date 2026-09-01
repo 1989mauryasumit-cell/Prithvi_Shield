@@ -10,7 +10,7 @@ import {
 import { 
   LayoutDashboard, Map, ShieldAlert, AlertTriangle, Radio, CloudRain, 
   FileText, Users, Bell, Search, Globe, ChevronDown, Check, Activity, 
-  MapPin, Clock, Camera, FileDown, PlusCircle, Trash, RefreshCcw, LogOut,
+  MapPin, Clock, Camera, FileDown, PlusCircle,
   Navigation as NavigationIcon
 } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export const Dashboard: React.FC = () => {
     currentTab, setCurrentTab,
     user, setUser,
     isConnected,
-    sensors, setSensors,
+    sensors,
     roads, setRoads,
     incidents, setIncidents,
     citizenReports, setCitizenReports,
@@ -32,7 +32,6 @@ export const Dashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const [notifMenuOpen, setNotifMenuOpen] = useState(false);
 
   // Sub-forms states
   const [reportDesc, setReportDesc] = useState('');
@@ -50,8 +49,7 @@ export const Dashboard: React.FC = () => {
   const [testMobileNumber, setTestMobileNumber] = useState<string>('+917319959112');
   const [smsAlertMessage, setSmsAlertMessage] = useState<string>('CRITICAL EVACUATION WARNING: Mass movements and saturated slope soils detected in East Khasi Hills. Seek high ground immediately.');
   const [smsSending, setSmsSending] = useState<boolean>(false);
-  const [smsGateway, setSmsGateway] = useState<string>('pushbullet');
-  const [pushbulletToken, setPushbulletToken] = useState<string>('o.oThyebgHDUpFA9o3E1zuKsNnqbi0BNKz');
+  const [pushbulletToken, setPushbulletToken] = useState<string>('');
 
 
 
@@ -758,7 +756,7 @@ export const Dashboard: React.FC = () => {
                         <button 
                           onClick={() => {
                             axios.put(`/incidents/${inc.id}`, { status: 'Verified' }, { headers: { Authorization: `Bearer mock` } })
-                              .then(res => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Verified' } : i)));
+                              .then(() => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Verified' } : i)));
                           }}
                           className="flex-1 bg-navy-850 hover:bg-navy-800 text-slate-300 font-bold text-[10px] py-2 rounded transition"
                         >
@@ -769,7 +767,7 @@ export const Dashboard: React.FC = () => {
                         <button 
                           onClick={() => {
                             axios.put(`/incidents/${inc.id}`, { status: 'Response Dispatched' }, { headers: { Authorization: `Bearer mock` } })
-                              .then(res => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Response Dispatched' } : i)));
+                              .then(() => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Response Dispatched' } : i)));
                           }}
                           className="flex-1 bg-amber-500 text-navy-950 font-bold text-[10px] py-2 rounded transition"
                         >
@@ -780,7 +778,7 @@ export const Dashboard: React.FC = () => {
                         <button 
                           onClick={() => {
                             axios.put(`/incidents/${inc.id}`, { status: 'Resolved' }, { headers: { Authorization: `Bearer mock` } })
-                              .then(res => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Resolved' } : i)));
+                              .then(() => setIncidents(incidents.map(i => i.id === inc.id ? { ...i, status: 'Resolved' } : i)));
                           }}
                           className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] py-2 rounded transition"
                         >
@@ -831,7 +829,7 @@ export const Dashboard: React.FC = () => {
                             <button 
                               onClick={() => {
                                 axios.put(`/roads/${road.id}`, { status: 'Open' }, { headers: { Authorization: `Bearer mock` } })
-                                  .then(res => setRoads(roads.map(r => r.id === road.id ? { ...r, status: 'Open', reopening_est: null } : r)));
+                                  .then(() => setRoads(roads.map(r => r.id === road.id ? { ...r, status: 'Open', reopening_est: null } : r)));
                               }}
                               className="bg-emerald-500/10 hover:bg-emerald-500 hover:text-navy-950 text-emerald-400 px-2 py-1 rounded font-bold"
                             >

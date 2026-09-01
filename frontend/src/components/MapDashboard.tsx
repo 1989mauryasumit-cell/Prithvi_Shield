@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Layers, ShieldAlert, Thermometer, Radio, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { Layers, ZoomIn, ZoomOut } from 'lucide-react';
 
 interface MapDashboardProps {
   sensors: any[];
   roads: any[];
   incidents: any[];
   zones: any[];
-  selectedZone: any;
+  selectedZone?: any;
   onSelectZone: (zone: any) => void;
 }
 
@@ -17,7 +17,6 @@ export const MapDashboard: React.FC<MapDashboardProps> = ({
   roads,
   incidents,
   zones,
-  selectedZone,
   onSelectZone,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -208,6 +207,41 @@ export const MapDashboard: React.FC<MapDashboardProps> = ({
       map.setTerrain(null);
     }
   }, [is3DMode]);
+
+  const capitals = [
+    { name: "New Delhi", x: 350, y: 280, lat: 28.6139, lon: 77.2090, isNational: true },
+    { name: "Shillong", x: 725, y: 380, lat: 25.5788, lon: 91.8933 },
+    { name: "Guwahati", x: 746, y: 350, lat: 26.1445, lon: 91.7362 },
+    { name: "Gangtok", x: 645, y: 295, lat: 27.3389, lon: 88.6065 },
+    { name: "Itanagar", x: 840, y: 260, lat: 27.0844, lon: 93.6053 },
+    { name: "Aizawl", x: 800, y: 470, lat: 23.7271, lon: 92.7176 },
+    { name: "Kohima", x: 830, y: 350, lat: 25.6751, lon: 94.1086 },
+    { name: "Imphal", x: 820, y: 410, lat: 24.8170, lon: 93.9368 },
+    { name: "Agartala", x: 760, y: 440, lat: 23.8315, lon: 91.2868 },
+    { name: "Dehradun", x: 370, y: 230, lat: 30.3165, lon: 78.0322 },
+    { name: "Shimla", x: 330, y: 200, lat: 31.1048, lon: 77.1734 },
+    { name: "Srinagar", x: 290, y: 130, lat: 34.0837, lon: 74.7973 },
+    { name: "Leh", x: 340, y: 110, lat: 34.1526, lon: 77.5771 },
+    { name: "Chandigarh", x: 310, y: 220, lat: 30.7333, lon: 76.7794 },
+    { name: "Jaipur", x: 290, y: 340, lat: 26.9124, lon: 75.7873 },
+    { name: "Lucknow", x: 430, y: 350, lat: 26.8467, lon: 80.9462 },
+    { name: "Patna", x: 550, y: 380, lat: 25.5941, lon: 85.1376 },
+    { name: "Kolkata", x: 620, y: 480, lat: 22.5726, lon: 88.3639 },
+    { name: "Ranchi", x: 540, y: 450, lat: 23.3441, lon: 85.3096 },
+    { name: "Bhubaneswar", x: 560, y: 540, lat: 20.2961, lon: 85.8245 },
+    { name: "Raipur", x: 460, y: 500, lat: 21.2514, lon: 81.6296 },
+    { name: "Bhopal", x: 390, y: 460, lat: 23.2599, lon: 77.4126 },
+    { name: "Gandhinagar", x: 210, y: 440, lat: 23.2156, lon: 72.6369 },
+    { name: "Mumbai", x: 280, y: 550, lat: 19.0760, lon: 72.8777 },
+    { name: "Panaji", x: 270, y: 690, lat: 15.4909, lon: 73.8278 },
+    { name: "Bengaluru", x: 340, y: 720, lat: 12.9716, lon: 77.5946 },
+    { name: "Hyderabad", x: 380, y: 610, lat: 17.3850, lon: 78.4867 },
+    { name: "Chennai", x: 410, y: 750, lat: 13.0827, lon: 80.2707 },
+    { name: "Trivandrum", x: 350, y: 860, lat: 8.5241, lon: 76.9366 },
+    { name: "Port Blair", x: 700, y: 850, lat: 11.6234, lon: 92.7265 },
+    { name: "Kavaratti", x: 225, y: 850, lat: 10.5669, lon: 72.6420 },
+    { name: "Puducherry", x: 415, y: 770, lat: 11.9416, lon: 79.8083 }
+  ];
 
   // Asynchronously fetch live capital weather from free Open-Meteo API with strict timeout failsafe
   useEffect(() => {

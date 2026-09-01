@@ -57,10 +57,6 @@ export const Dashboard: React.FC = () => {
 
 
 
-  // District Weather cache
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [selectedWeatherDistrict, setSelectedWeatherDistrict] = useState(1);
-
   // Helper to generate district-specific fallback weather data when backend is offline
   const getMockDistrictWeather = (districtId: number) => {
     const mockWeatherMap: Record<number, any> = {
@@ -117,6 +113,10 @@ export const Dashboard: React.FC = () => {
     };
     return mockWeatherMap[districtId] || mockWeatherMap[1];
   };
+
+  // District Weather cache
+  const [selectedWeatherDistrict, setSelectedWeatherDistrict] = useState(1);
+  const [weatherData, setWeatherData] = useState<any>(getMockDistrictWeather(1));
 
 
   // Search filter implementation

@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   db:
-    image: timescale/timescaledb-postgis:latest-pg15
+    image: timescale/timescaledb-ha:pg15-latest
     container_name: prithvi-db
     environment:
       POSTGRES_USER: postgres
